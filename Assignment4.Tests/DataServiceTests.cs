@@ -1,16 +1,17 @@
 using DataLayer;
+using DataLayer.Models;
 
 namespace Assignment4.Tests
 {
     public class DataServiceTests
     {
         /* Categories */
-#if COMMENT
+
         [Fact]
         public void Category_Object_HasIdNameDescription()
         {
             var category = new Category();
-            Assert.Equal(0, category.Id);
+            Assert.Equal(0, category.CategoryId);
             Assert.Null(category.Name);
             Assert.Null(category.Description);
         }
@@ -19,7 +20,7 @@ namespace Assignment4.Tests
         public void GetAllCategories_NoArgument_ReturnsAllCategories()
         {
             var service = new DataService();
-            var categories = service.GetCategories();
+            var categories = service.GetAllCategories();
             Assert.Equal(8, categories.Count);
             Assert.Equal("Beverages", categories.First().Name);
         }
@@ -28,7 +29,7 @@ namespace Assignment4.Tests
         public void GetCategory_ValidId_ReturnsCategoryObject()
         {
             var service = new DataService();
-            var category = service.GetCategory(1);
+            var category = service.GetCategoryById(1);
             Assert.Equal("Beverages", category.Name);
         }
 
@@ -37,22 +38,22 @@ namespace Assignment4.Tests
         {
             var service = new DataService();
             var category = service.CreateCategory("Test", "CreateCategory_ValidData_CreteCategoryAndReturnsNewObject");
-            Assert.True(category.Id > 0);
+            Assert.True(category.CategoryId > 0);
             Assert.Equal("Test", category.Name);
             Assert.Equal("CreateCategory_ValidData_CreteCategoryAndReturnsNewObject", category.Description);
 
             // cleanup
-            service.DeleteCategory(category.Id);
+            service.DeleteCategory(category.CategoryId);
         }
-
+#if COMMENT
         [Fact]
         public void DeleteCategory_ValidId_RemoveTheCategory()
         {
             var service = new DataService();
             var category = service.CreateCategory("Test", "DeleteCategory_ValidId_RemoveTheCategory");
-            var result = service.DeleteCategory(category.Id);
+            var result = service.DeleteCategory(category.CategoryId);
             Assert.True(result);
-            category = service.GetCategory(category.Id);
+            category = service.GetCategoryById(category.CategoryId);
             Assert.Null(category);
         }
 

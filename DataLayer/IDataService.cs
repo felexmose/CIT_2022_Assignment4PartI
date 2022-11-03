@@ -12,15 +12,16 @@ namespace DataLayer
         Order GetOrderById(int id);
         List<Order> GetOrderByShippingName(string shippingName);
         List<Order> GetAllOrders();
-        OrderDetails GetOrderDetailsByOrderId(int orderId);
+        List<OrderDetailsWithProductName> GetOrderDetailsByOrderId(int orderId);
         List<OrderDetails> GetDetailsForSpecificProductId(string productId);
         Product GetProductById(int productId);
         List<Product> GetProductsThatContainSubstring(string substring);
         List<Product> GetProductsByCategoryId(int categoryId);
         Category GetCategoryById(int categoryId);
         List<Category> GetAllCategories();
-        Category AddNewCategory(string name, string description);
+        Category CreateCategory(string name, string description);
         bool UpdateCategory(int id, string name, string description);
         bool DeleteCategory(int id);
+
     }
 }

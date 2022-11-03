@@ -10,7 +10,7 @@ namespace DataLayer
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<Order> Orders { get; set; }
+        public DbSet<Order> Orders { get; set; }        
         //public DbSet<OrderDetails> OrderDetails { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -23,7 +23,21 @@ namespace DataLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<OrderDetails>().HasKey(am => new
+            //{
+            //    am.OrderId,
+            //    am.ProductId,
+            //});
+
+            //modelBuilder.Entity<OrderDetails>().HasOne(m => m.Product)
+            //.WithMany(am => am.).HasForeignKey(m => m.ProductId);
+
+            //modelBuilder.Entity<OrderDetails>().HasOne(a => a.Order)
+            //.WithMany(at => at.Product_Orders).HasForeignKey(a => a.OrderId);
+
             base.OnModelCreating(modelBuilder);
+
+
 
             modelBuilder.Entity<Category>().ToTable("categories");
             modelBuilder.Entity<Category>().Property(x => x.CategoryId).HasColumnName("categoryid");
@@ -47,12 +61,12 @@ namespace DataLayer
             modelBuilder.Entity<Order>().Property(x => x.ShipName).HasColumnName("shipname");
             modelBuilder.Entity<Order>().Property(x => x.ShipCity).HasColumnName("shipcity");
 
-            modelBuilder.Entity<OrderDetails>().ToTable("orderdetails");
-            modelBuilder.Entity<OrderDetails>().Property(x => x.Id).HasColumnName("orderid");
-            modelBuilder.Entity<OrderDetails>().Property(x => x.ProductId).HasColumnName("productid");
-            modelBuilder.Entity<OrderDetails>().Property(x => x.UnitPrice).HasColumnName("unitprice");
-            modelBuilder.Entity<OrderDetails>().Property(x => x.Quantity).HasColumnName("quantity");
-            modelBuilder.Entity<OrderDetails>().Property(x => x.Discount).HasColumnName("discount");
+            //modelBuilder.Entity<OrderDetails>().ToTable("orderdetails");
+            //modelBuilder.Entity<OrderDetails>().Property(x => x.OrderId).HasColumnName("orderid");
+            //modelBuilder.Entity<OrderDetails>().Property(x => x.ProductId).HasColumnName("productid");
+            //modelBuilder.Entity<OrderDetails>().Property(x => x.UnitPrice).HasColumnName("unitprice");
+            //modelBuilder.Entity<OrderDetails>().Property(x => x.Quantity).HasColumnName("quantity");
+            //modelBuilder.Entity<OrderDetails>().Property(x => x.Discount).HasColumnName("discount");
         }
     }
 }
